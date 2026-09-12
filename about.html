@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>About — Future Operating Base</title>
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  a{ text-decoration:none; color:inherit; }
+  html{ scroll-behavior:smooth; color-scheme:light dark; }
+  body{
+    font-family:-apple-system, 'FreeSans', sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    overflow-x:hidden;
+  }
+  :root{
+    --vivid:#1656D6;
+    --mid:#4A8FDB;
+    --pale:#8FC5EA;
+    --ink:#1d1d1f;
+    --ink-soft:#6e6e73;
+    --bg:#fff;
+    --bg-alt:#f5f5f7;
+    --nav-scrolled-bg:rgba(255,255,255,0.82);
+    --menu-bg:rgba(255,255,255,0.97);
+    --divider:rgba(0,0,0,0.08);
+    --card-bg:#f5f5f7;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink:#f5f5f7;
+      --ink-soft:#a1a1a6;
+      --bg:#000;
+      --bg-alt:#1c1c1e;
+      --nav-scrolled-bg:rgba(20,20,22,0.78);
+      --menu-bg:rgba(10,10,10,0.95);
+      --divider:rgba(255,255,255,0.12);
+      --pale:#5a9bd4;
+      --card-bg:#1c1c1e;
+    }
+  }
+  .wrap{ max-width:1024px; margin:0 auto; padding:0 24px; }
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    height:48px;
+    display:flex; align-items:center; justify-content:center;
+    background:transparent;
+    transition:background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
+    border-bottom:1px solid transparent;
+  }
+  nav.scrolled{
+    background:var(--nav-scrolled-bg);
+    backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--divider);
+  }
+  nav .nav-inner{
+    width:100%; max-width:1024px; padding:0 22px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  nav .nav-brand{
+    display:flex; align-items:center; gap:8px;
+    font-size:13px; font-weight:600; letter-spacing:0.01em;
+    color:#fff; transition:color 0.4s ease;
+  }
+  nav.scrolled .nav-brand{ color:var(--ink); }
+  nav .nav-brand img{ width:18px; height:18px; }
+  nav .nav-links{ display:flex; gap:34px; }
+  nav .nav-links a{
+    font-size:12px; color:rgba(255,255,255,0.85); font-weight:400;
+    transition:color 0.4s ease, opacity 0.2s ease;
+  }
+  nav.scrolled .nav-links a{ color:var(--ink-soft); }
+  nav .nav-links a.current{ opacity:0.5; }
+  nav .nav-links a:hover{ opacity:0.6; }
+  .nav-hamburger{ display:none; }
+
+  @media (max-width:780px){
+    nav .nav-links{ display:none; }
+    .nav-hamburger{
+      display:block;
+      position:fixed; top:8px; right:22px; z-index:120;
+      width:32px; height:32px; border:none; background:none; cursor:pointer;
+    }
+    .nav-hamburger span{
+      display:block; width:18px; height:1.5px; background:#fff;
+      margin:0 auto; position:relative; transition:transform 0.3s ease, opacity 0.3s ease, top 0.3s ease, background 0.4s ease;
+    }
+    .nav-hamburger.scrolled span{ background:var(--ink); }
+    .nav-hamburger span:nth-child(1){ top:-3px; }
+    .nav-hamburger span:nth-child(3){ top:3px; }
+    .nav-hamburger.open span{ background:var(--ink) !important; }
+    .nav-hamburger.open span:nth-child(1){ top:0; transform:rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2){ opacity:0; }
+    .nav-hamburger.open span:nth-child(3){ top:0; transform:rotate(-45deg); }
+  }
+
+  /* ===== MOBILE MENU ===== */
+  .mobile-menu{
+    position:fixed; top:0; left:0; right:0; z-index:105;
+    background:var(--menu-bg); backdrop-filter:blur(24px);
+    padding:110px 32px 40px;
+    max-height:100vh; overflow:auto;
+    opacity:0; visibility:hidden; transform:translateY(-12px);
+    transition:opacity 0.35s cubic-bezier(.25,.8,.25,1), transform 0.35s cubic-bezier(.25,.8,.25,1), visibility 0.35s;
+  }
+  .mobile-menu.open{ opacity:1; visibility:visible; transform:translateY(0); }
+  .mobile-menu a{
+    display:block; font-size:32px; font-weight:600; color:var(--ink);
+    padding:16px 0; border-bottom:1px solid var(--divider);
+    letter-spacing:-0.01em;
+  }
+  .mobile-backdrop{
+    display:none;
+    position:fixed; top:0; left:0; right:0; bottom:0; z-index:103;
+    background:transparent;
+  }
+  .mobile-backdrop.open{ display:block; }
+
+  /* ===== PAGE HERO ===== */
+  .page-hero{
+    background:linear-gradient(135deg, #1656D6 0%, #1656D6 40%, #4A8FDB 75%, #8FC5EA 100%);
+    color:#fff;
+    min-height:64vh;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center;
+    padding:100px 24px 60px;
+  }
+  .page-hero h1{
+    font-size:clamp(36px, 7vw, 64px); font-weight:700; line-height:1.08;
+    letter-spacing:-0.02em; margin-bottom:18px;
+  }
+  .page-hero p{
+    font-size:clamp(16px, 2.2vw, 21px); color:rgba(255,255,255,0.85);
+    max-width:560px; margin:0 auto; font-weight:400; line-height:1.5;
+  }
+
+  /* ===== SCROLL REVEAL ===== */
+  .reveal{
+    opacity:0; transform:translateY(30px) scale(0.96);
+    transition:opacity 0.9s cubic-bezier(.16,.9,.3,1), transform 0.9s cubic-bezier(.16,.9,.3,1);
+  }
+  .reveal.is-visible{ opacity:1; transform:translateY(0) scale(1); }
+
+  /* ===== ABOUT SECTIONS ===== */
+  .about-block{ padding:110px 0; background:var(--bg); }
+  .about-block.alt{ background:var(--bg-alt); }
+  .about-grid{ display:grid; grid-template-columns:0.55fr 1fr; gap:64px; align-items:center; }
+  .about-grid.reverse{ grid-template-columns:1fr 0.55fr; }
+  .about-photo{ border-radius:16px; overflow:hidden; }
+  .about-photo img{ width:100%; object-fit:cover; aspect-ratio:4/5; display:block; }
+  .about-block h2{
+    font-size:clamp(28px, 4.5vw, 42px); font-weight:700; letter-spacing:-0.02em;
+    margin-bottom:22px; color:var(--ink);
+  }
+  .about-block p{
+    font-size:18px; line-height:1.65; color:var(--ink-soft); margin-bottom:16px; max-width:560px;
+  }
+  @media (max-width:800px){ .about-grid, .about-grid.reverse{ grid-template-columns:1fr; } .about-photo{ max-width:320px; margin:0 auto; } }
+
+  .values-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:40px; }
+  .value-card{ background:var(--card-bg); border-radius:16px; padding:36px 30px; }
+  .value-card h3{ font-size:20px; font-weight:700; color:var(--ink); margin-bottom:12px; letter-spacing:-0.01em; }
+  .value-card p{ font-size:15px; color:var(--ink-soft); margin:0; max-width:none; line-height:1.55; }
+  @media (max-width:800px){ .values-row{ grid-template-columns:1fr; } }
+
+  .section-head-center{ text-align:center; max-width:640px; margin:0 auto 20px; }
+
+  /* ===== CTA BAND ===== */
+  .cta-band{ padding:90px 24px; text-align:center; background:var(--bg-alt); }
+  .cta-glass{
+    display:inline-block;
+    background:rgba(120,150,220,0.14);
+    backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+    border:1px solid var(--divider);
+    color:var(--vivid);
+    font-size:17px; font-weight:600; padding:16px 40px; border-radius:100px;
+  }
+
+  /* ===== FOOTER ===== */
+  footer{ background:var(--bg); padding:50px 24px; border-top:1px solid var(--divider); }
+  .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; max-width:1024px; margin:0 auto; }
+  .footer-brand{ display:flex; align-items:center; gap:10px; }
+  .footer-brand img{ width:20px; opacity:0.8; }
+  .footer-brand span{ font-size:14px; font-weight:600; color:var(--ink); }
+  footer .flinks{ display:flex; gap:24px; font-size:13px; }
+  footer .flinks a{ color:var(--ink-soft); }
+  footer .flinks a:hover{ color:var(--vivid); }
+  .footer-fine{ font-size:12px; color:var(--ink-soft); opacity:0.7; max-width:1024px; margin:20px auto 0; text-align:left; }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <img src="logo.png" alt="Future Operating Base">
+      Future Operating Base
+    </a>
+    <div class="nav-links">
+      <a href="index.html#problem">The Problem</a>
+      <a href="index.html#path">Your Path</a>
+      <a href="index.html#features">Features</a>
+      <a href="about.html" class="current">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<button class="nav-hamburger" id="hamburger" aria-label="Menu">
+  <span></span><span></span><span></span>
+</button>
+
+<div class="mobile-backdrop" id="mobileBackdrop"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#problem">The Problem</a>
+  <a href="index.html#path">Your Path</a>
+  <a href="index.html#features">Features</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<header class="page-hero">
+  <div class="wrap">
+    <h1>Built by someone who lived it.</h1>
+    <p>Future Operating Base exists because one veteran got out, had no idea what she didn't know, and decided nobody else should have to find out the hard way either.</p>
+  </div>
+</header>
+
+<section class="about-block">
+  <div class="wrap">
+    <div class="about-grid reveal">
+      <div class="about-photo"><img src="headshot.jpg" alt="Catherine Resoco, Founder"></div>
+      <div>
+        <h2>The founder</h2>
+        <p>I'm a Marine Corps veteran. When I got out, I didn't know what I'd earned, who to ask, or where to even start looking — and I don't think that's unusual. It's the default experience.</p>
+        <p>I built Future Operating Base myself, largely through AI-assisted development. I'm not a trained engineer, and I'm not pretending to be one. I'm someone who needed this tool, so I built it — learning as I went, and staying honest about the fact that it's still a work in progress.</p>
+        <p>It's free. It's staying free. And it's still very much in progress — which is exactly why your feedback matters right now, while it's still being shaped.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about-block alt">
+  <div class="wrap">
+    <div class="about-grid reverse reveal">
+      <div>
+        <h2>Why it exists</h2>
+        <p>Transitioning out of the military means untangling GI Bill vs. VR&amp;E, home loan eligibility, disability claims, and a separation timeline — usually spread across six different offices, each speaking its own dialect of acronym.</p>
+        <p>You don't have a benefits problem. You have an information problem. Future Operating Base exists to put the plain-language version of all of it in one place, personalized to your actual EAS date and branch.</p>
+      </div>
+      <div class="about-photo"><img src="logo.png" alt="" style="background:var(--vivid); padding:60px; aspect-ratio:1/1; object-fit:contain;"></div>
+    </div>
+  </div>
+</section>
+
+<section class="about-block">
+  <div class="wrap">
+    <div class="section-head-center reveal">
+      <h2>What we stand for</h2>
+    </div>
+    <div class="values-row reveal">
+      <div class="value-card">
+        <h3>Free, always</h3>
+        <p>Future Operating Base is free to use today and will stay free. Funding comes from grants and strategic investment — never from the people using it.</p>
+      </div>
+      <div class="value-card">
+        <h3>Independent</h3>
+        <p>This is not affiliated with or endorsed by the U.S. Department of Veterans Affairs. It's an independent resource built to help you navigate the system that exists.</p>
+      </div>
+      <div class="value-card">
+        <h3>Plain language</h3>
+        <p>Every source is a real regulation or official benefit — translated out of bureaucratic language, not simplified into something inaccurate.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <a href="https://bit.ly/4r5NC2R" class="cta-glass">Try the Beta</a>
+</section>
+
+<footer>
+  <div class="footer-row">
+    <div class="footer-brand">
+      <img src="logo.png" alt="">
+      <span>Future Operating Base</span>
+    </div>
+    <div class="flinks">
+      <a href="index.html#problem">The Problem</a>
+      <a href="index.html#path">Your Path</a>
+      <a href="index.html#features">Features</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+  <div class="footer-fine">Future Operating Base is a free, independent resource and is not affiliated with or endorsed by the U.S. Department of Veterans Affairs.</div>
+</footer>
+
+<script>
+  var nav = document.getElementById('nav');
+  var hamburger = document.getElementById('hamburger');
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 8) {
+      nav.classList.add('scrolled');
+      hamburger.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+      hamburger.classList.remove('scrolled');
+    }
+  });
+  var menu = document.getElementById('mobileMenu');
+  var backdrop = document.getElementById('mobileBackdrop');
+  function closeMenu(){
+    hamburger.classList.remove('open');
+    menu.classList.remove('open');
+    backdrop.classList.remove('open');
+  }
+  hamburger.addEventListener('click', function(){
+    var isOpen = menu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    backdrop.classList.toggle('open', isOpen);
+  });
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+  menu.addEventListener('click', function(e){ if (e.target === menu) closeMenu(); });
+  backdrop.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeMenu(); });
+
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) { entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('is-visible'); });
+  }
+</script>
+</body>
+</html>
