@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>Resources — Future Operating Base</title>
+<meta name="description" content="VA benefits explained: the 10-year and 20-year rules, TDIU, CHAMPVA, PTSD vs C-PTSD, and top claimed disabilities — sourced, cited, plain language.">
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  a{ text-decoration:none; color:inherit; }
+  html{ scroll-behavior:smooth; color-scheme:light dark; }
+  body{
+    font-family:-apple-system, 'FreeSans', sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    overflow-x:hidden;
+  }
+  :root{
+    --vivid:#1656D6;
+    --mid:#4A8FDB;
+    --pale:#8FC5EA;
+    --ink:#1d1d1f;
+    --ink-soft:#6e6e73;
+    --bg:#fff;
+    --bg-alt:#f5f5f7;
+    --nav-scrolled-bg:rgba(255,255,255,0.82);
+    --menu-bg:rgba(255,255,255,0.97);
+    --divider:rgba(0,0,0,0.08);
+    --card-bg:#f5f5f7;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink:#f5f5f7;
+      --ink-soft:#a1a1a6;
+      --bg:#000;
+      --bg-alt:#1c1c1e;
+      --nav-scrolled-bg:rgba(20,20,22,0.78);
+      --menu-bg:rgba(10,10,10,0.95);
+      --divider:rgba(255,255,255,0.12);
+      --pale:#5a9bd4;
+      --card-bg:#1c1c1e;
+    }
+  }
+  .wrap{ max-width:1024px; margin:0 auto; padding:0 24px; }
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    height:48px;
+    display:flex; align-items:center; justify-content:center;
+    background:transparent;
+    transition:background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
+    border-bottom:1px solid transparent;
+  }
+  nav.scrolled{
+    background:var(--nav-scrolled-bg);
+    backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--divider);
+  }
+  nav .nav-inner{
+    width:100%; max-width:1024px; padding:0 22px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  nav .nav-brand{
+    display:flex; align-items:center; gap:8px;
+    font-size:13px; font-weight:600; letter-spacing:0.01em;
+    color:#fff; transition:color 0.4s ease;
+  }
+  nav.scrolled .nav-brand{ color:var(--ink); }
+  nav .nav-brand img{ width:18px; height:18px; }
+  nav .nav-links{ display:flex; gap:34px; }
+  nav .nav-links a{
+    font-size:12px; color:rgba(255,255,255,0.85); font-weight:400;
+    transition:color 0.4s ease, opacity 0.2s ease;
+  }
+  nav.scrolled .nav-links a{ color:var(--ink-soft); }
+  nav .nav-links a.current{ opacity:0.5; }
+  nav .nav-links a:hover{ opacity:0.6; }
+  .nav-hamburger{ display:none; }
+
+  @media (max-width:780px){
+    nav .nav-links{ display:none; }
+    .nav-hamburger{
+      display:block;
+      position:fixed; top:8px; right:22px; z-index:120;
+      width:32px; height:32px; border:none; background:none; cursor:pointer;
+    }
+    .nav-hamburger span{
+      display:block; width:18px; height:1.5px; background:#fff;
+      margin:0 auto; position:relative; transition:transform 0.3s ease, opacity 0.3s ease, top 0.3s ease, background 0.4s ease;
+    }
+    .nav-hamburger.scrolled span{ background:var(--ink); }
+    .nav-hamburger span:nth-child(1){ top:-3px; }
+    .nav-hamburger span:nth-child(3){ top:3px; }
+    .nav-hamburger.open span{ background:var(--ink) !important; }
+    .nav-hamburger.open span:nth-child(1){ top:0; transform:rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2){ opacity:0; }
+    .nav-hamburger.open span:nth-child(3){ top:0; transform:rotate(-45deg); }
+  }
+
+  /* ===== MOBILE MENU ===== */
+  .mobile-menu{
+    position:fixed; top:0; left:0; right:0; z-index:105;
+    background:var(--menu-bg); backdrop-filter:blur(24px);
+    padding:110px 32px 40px;
+    max-height:100vh; overflow:auto;
+    opacity:0; visibility:hidden; transform:translateY(-12px);
+    transition:opacity 0.35s cubic-bezier(.25,.8,.25,1), transform 0.35s cubic-bezier(.25,.8,.25,1), visibility 0.35s;
+  }
+  .mobile-menu.open{ opacity:1; visibility:visible; transform:translateY(0); }
+  .mobile-menu a{
+    display:block; font-size:32px; font-weight:600; color:var(--ink);
+    padding:16px 0; border-bottom:1px solid var(--divider);
+    letter-spacing:-0.01em;
+  }
+  .mobile-backdrop{
+    display:none;
+    position:fixed; top:0; left:0; right:0; bottom:0; z-index:103;
+    background:transparent;
+  }
+  .mobile-backdrop.open{ display:block; }
+
+  /* ===== PAGE HERO ===== */
+  .page-hero{
+    background:linear-gradient(135deg, #1656D6 0%, #1656D6 40%, #4A8FDB 75%, #8FC5EA 100%);
+    color:#fff;
+    min-height:56vh;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center;
+    padding:100px 24px 60px;
+  }
+  .page-hero h1{
+    font-size:clamp(36px, 7vw, 64px); font-weight:700; line-height:1.08;
+    letter-spacing:-0.02em; margin-bottom:18px;
+  }
+  .page-hero p{
+    font-size:clamp(16px, 2.2vw, 21px); color:rgba(255,255,255,0.85);
+    max-width:560px; margin:0 auto; font-weight:400; line-height:1.5;
+  }
+
+  /* ===== SCROLL REVEAL ===== */
+  .reveal{
+    opacity:0; transform:translateY(30px) scale(0.96);
+    transition:opacity 0.9s cubic-bezier(.16,.9,.3,1), transform 0.9s cubic-bezier(.16,.9,.3,1);
+  }
+  .reveal.is-visible{ opacity:1; transform:translateY(0) scale(1); }
+
+  /* ===== CONTACT SECTION ===== */
+  .contact-section{ padding:110px 0 90px; background:var(--bg); }
+  .contact-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:960px; margin:0 auto; }
+  .contact-card{
+    background:var(--card-bg); border-radius:20px; padding:40px 30px; text-align:center;
+  }
+  .contact-card .icon{ width:36px; height:36px; margin:0 auto 20px; stroke:var(--vivid); fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+  .contact-card h3{ font-size:20px; font-weight:700; color:var(--ink); margin-bottom:10px; letter-spacing:-0.01em; }
+  .contact-card p{ font-size:14px; color:var(--ink-soft); margin-bottom:22px; line-height:1.5; }
+  .contact-card a.link-btn{ display:inline-block; background:var(--vivid); color:#fff; font-size:14px; font-weight:600; padding:12px 22px; border-radius:100px; }
+  @media (max-width:820px){ .contact-grid{ grid-template-columns:1fr; max-width:400px; } }
+
+  .note-band{ background:var(--bg-alt); padding:60px 24px; text-align:center; }
+  .note-band p{ font-size:15px; color:var(--ink-soft); max-width:620px; margin:0 auto; line-height:1.6; }
+  .note-band a{ color:var(--vivid); font-weight:600; }
+
+  /* ===== CTA BAND ===== */
+  .cta-band{ padding:90px 24px; text-align:center; background:var(--bg); }
+  .cta-glass{
+    display:inline-block;
+    background:rgba(120,150,220,0.14);
+    backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+    border:1px solid var(--divider);
+    color:var(--vivid);
+    font-size:17px; font-weight:600; padding:16px 40px; border-radius:100px;
+  }
+
+  /* ===== FOOTER ===== */
+  footer{ background:var(--bg); padding:50px 24px; border-top:1px solid var(--divider); }
+  .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; max-width:1024px; margin:0 auto; }
+  .footer-brand{ display:flex; align-items:center; gap:10px; }
+  .footer-brand img{ width:20px; opacity:0.8; }
+  .footer-brand span{ font-size:14px; font-weight:600; color:var(--ink); }
+  footer .flinks{ display:flex; gap:24px; font-size:13px; }
+  footer .flinks a{ color:var(--ink-soft); }
+  footer .flinks a:hover{ color:var(--vivid); }
+  .footer-fine{ font-size:12px; color:var(--ink-soft); opacity:0.7; max-width:1024px; margin:20px auto 0; text-align:left; }
+
+  /* ===== LEGAL DOCUMENT CONTENT ===== */
+  .legal-hero{
+    background:linear-gradient(135deg, #1656D6 0%, #1656D6 40%, #4A8FDB 75%, #8FC5EA 100%);
+    color:#fff; text-align:center; padding:120px 24px 60px;
+  }
+  .legal-hero h1{ font-size:clamp(32px, 6vw, 52px); font-weight:700; letter-spacing:-0.02em; margin-bottom:14px; }
+  .legal-hero p{ font-size:15px; color:rgba(255,255,255,0.8); }
+
+  .legal-body{ background:var(--bg); padding:70px 0 100px; }
+  .legal-wrap{ max-width:720px; margin:0 auto; padding:0 24px; }
+  .legal-wrap h2{
+    font-size:22px; font-weight:700; color:var(--ink); letter-spacing:-0.01em;
+    margin-top:48px; margin-bottom:14px;
+  }
+  .legal-wrap h2:first-child{ margin-top:0; }
+  .legal-wrap p{ font-size:16px; line-height:1.7; color:var(--ink-soft); margin-bottom:16px; }
+  .legal-wrap ul{ margin:0 0 16px 0; padding-left:22px; }
+  .legal-wrap li{ font-size:16px; line-height:1.7; color:var(--ink-soft); margin-bottom:8px; }
+  .legal-wrap a{ color:var(--vivid); font-weight:600; }
+  .legal-note{
+    background:var(--bg-alt); border-radius:12px; padding:20px 24px;
+    font-size:14px; color:var(--ink-soft); line-height:1.6; margin-bottom:40px;
+  }
+
+  .legal-hero{
+    background:linear-gradient(135deg, #1656D6 0%, #1656D6 40%, #4A8FDB 75%, #8FC5EA 100%);
+    color:#fff; text-align:center; padding:120px 24px 60px;
+  }
+  .legal-hero h1{ font-size:clamp(32px, 6vw, 52px); font-weight:700; letter-spacing:-0.02em; margin-bottom:14px; }
+  .legal-hero p{ font-size:16px; color:rgba(255,255,255,0.85); max-width:560px; margin:0 auto; }
+
+  .toc-band{ background:var(--bg-alt); padding:40px 24px; }
+  .toc-wrap{ max-width:820px; margin:0 auto; }
+  .toc-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .toc-grid a{
+    background:var(--card-bg); border:1px solid var(--divider); border-radius:10px;
+    padding:14px 16px; font-size:14px; font-weight:600; color:var(--vivid);
+    display:block; text-align:center;
+  }
+  @media (max-width:700px){ .toc-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:460px){ .toc-grid{ grid-template-columns:1fr; } }
+
+  .article-body{ background:var(--bg); padding:70px 0; }
+  .article-wrap{ max-width:720px; margin:0 auto; padding:0 24px; }
+  .article{ padding:60px 0; border-top:1px solid var(--divider); }
+  .article:first-child{ border-top:none; padding-top:0; }
+  .article .eyebrow{ font-size:13px; font-weight:700; color:var(--vivid); letter-spacing:0.04em; text-transform:uppercase; margin-bottom:12px; }
+  .article h2{ font-size:clamp(24px, 4vw, 32px); font-weight:700; letter-spacing:-0.01em; color:var(--ink); margin-bottom:18px; }
+  .article p{ font-size:16px; line-height:1.7; color:var(--ink-soft); margin-bottom:16px; }
+  .article ul, .article ol{ margin:0 0 16px 0; padding-left:22px; }
+  .article li{ font-size:16px; line-height:1.7; color:var(--ink-soft); margin-bottom:8px; }
+  .article strong{ color:var(--ink); }
+  .callout{
+    background:var(--bg-alt); border-left:4px solid var(--vivid); border-radius:8px;
+    padding:20px 24px; margin:20px 0;
+  }
+  .callout .tag{ font-size:12px; font-weight:700; color:var(--vivid); letter-spacing:0.04em; text-transform:uppercase; margin-bottom:8px; }
+  .callout p{ margin:0; font-size:15px; }
+  .cite{ font-size:13px; color:var(--ink-soft); opacity:0.7; font-style:italic; margin-top:20px; }
+  .crisis-box{
+    background:#1a1a1a; color:#fff; border-radius:12px; padding:26px 28px; margin:24px 0;
+  }
+  .crisis-box .tag{ font-size:13px; font-weight:700; color:#ff9d9d; letter-spacing:0.04em; text-transform:uppercase; margin-bottom:12px; }
+  .crisis-box p{ color:rgba(255,255,255,0.85); font-size:15px; margin-bottom:6px; }
+  .crisis-box strong{ color:#fff; }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <img src="logo.png" alt="Future Operating Base">
+      Future Operating Base
+    </a>
+    <div class="nav-links">
+      <a href="index.html#problem">The Problem</a>
+      <a href="resources.html" class="current">Resources</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+  <span></span><span></span><span></span>
+</button>
+
+<div class="mobile-backdrop" id="mobileBackdrop"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html#problem">The Problem</a>
+  <a href="resources.html">Resources</a>
+  <a href="about.html">About</a>
+  <a href="faq.html">FAQ</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<header class="legal-hero">
+  <h1>Know your rights.</h1>
+  <p>Plain-language explainers on the VA rules and benefits veterans ask about most — sourced, cited, and kept in one place.</p>
+</header>
+
+<div class="toc-band">
+  <div class="toc-wrap">
+    <div class="toc-grid">
+      <a href="#ten-year-rule">10-Year Rule</a>
+      <a href="#twenty-year-rule">20-Year Rule</a>
+      <a href="#tdiu">TDIU</a>
+      <a href="#champva">CHAMPVA</a>
+      <a href="#ptsd-cptsd">PTSD vs C-PTSD</a>
+      <a href="#top-claims">Top Claimed Disabilities</a>
+    </div>
+  </div>
+</div>
+
+<section class="article-body">
+  <div class="article-wrap">
+
+    <div class="article" id="ten-year-rule">
+      <div class="eyebrow">Know Your Rights</div>
+      <h2>The VA's 10-Year Protection Rule</h2>
+      <p>Once your service connection for a disability has been in effect for <strong>10 years or more</strong>, the VA cannot sever it — except in cases of proven fraud, or if military records clearly show you didn't have the required service or character of discharge.</p>
+      <p>The 10-year period is counted from the effective date VA first granted service connection, to the effective date of any severance decision. This protection also extends to DIC (dependency and indemnity compensation) and death compensation claims for survivors.</p>
+      <div class="callout">
+        <div class="tag">Common misunderstanding</div>
+        <p>This rule protects your <strong>service connection</strong> — not your rating percentage. The VA can still reduce your rating, even down to 0%, through the normal reduction process. What it can't do is say the condition isn't related to your service anymore.</p>
+      </div>
+      <div class="cite">Source: 38 CFR § 3.957 (Authority: 38 U.S.C. § 1159)</div>
+    </div>
+
+    <div class="article" id="twenty-year-rule">
+      <div class="eyebrow">Know Your Rights</div>
+      <h2>The VA's 20-Year Protection Rule</h2>
+      <p>Once a disability rating has been continuously in effect for <strong>20 years or more</strong>, the VA cannot reduce it below that level — except for proven fraud. Unlike the 10-year rule, there's no exception for service or discharge issues.</p>
+      <p>This protection also extends to permanent total disability ratings held for pension purposes for 20+ years, and it applies to combined ratings, not just single-condition ratings.</p>
+      <div class="callout">
+        <div class="tag">Common mistake</div>
+        <p>Your protected floor is the <strong>lowest</strong> rating you held during those 20 years — not your current or highest one. If your rating went 30% → 70% → 30%, your protected floor is 30%, not 70%.</p>
+      </div>
+      <div class="cite">Source: 38 CFR § 3.951(b)</div>
+    </div>
+
+    <div class="article" id="tdiu">
+      <div class="eyebrow">VA Benefits 101</div>
+      <h2>TDIU: 100% Pay Without a 100% Rating</h2>
+      <p>Total Disability based on Individual Unemployability (TDIU) lets the VA pay you at the <strong>full 100% compensation rate</strong> — even with a lower combined schedular rating — if your service-connected conditions prevent you from holding substantially gainful employment.</p>
+      <p>There are two paths to qualify:</p>
+      <ul>
+        <li><strong>Schedular (§4.16(a)):</strong> One condition rated 60%+, or a combined rating of 70%+ with at least one condition rated 40% or higher.</li>
+        <li><strong>Extraschedular (§4.16(b)):</strong> Don't meet those numbers? You can still qualify through a case-by-case review if your conditions genuinely keep you from working.</li>
+      </ul>
+      <div class="callout">
+        <div class="tag">What most veterans get wrong</div>
+        <p>You don't have to be completely unable to work. The test is "substantially gainful employment" — not "any work at all." Part-time or low-income work below the federal poverty threshold, or work in a protected environment like a family business, doesn't disqualify you from TDIU.</p>
+      </div>
+      <div class="cite">Source: 38 CFR § 4.16 (Total Disability Ratings Based on Individual Unemployability)</div>
+    </div>
+
+    <div class="article" id="champva">
+      <div class="eyebrow">Know Your Rights</div>
+      <h2>CHAMPVA: Healthcare for Your Family</h2>
+      <p>CHAMPVA covers <strong>family members</strong> of veterans — not the veteran. The veteran is covered separately through VHA. To qualify, the veteran sponsor generally must be rated 100% permanent and total (P&amp;T), and the family member cannot have TRICARE at the same time.</p>
+      <p>Cost-share works like this: a $50 per person deductible (capped at $100 per family) per calendar year, then CHAMPVA pays 75% of allowable charges after the deductible, with the family responsible for the remaining 25% — up to a $3,000 per-family annual cap on out-of-pocket costs.</p>
+      <div class="callout">
+        <div class="tag">Common mistake</div>
+        <p>A 70% rating does not qualify a family for CHAMPVA. The sponsor generally needs a full 100% P&amp;T rating — this is one of the most common points of confusion in the whole program.</p>
+      </div>
+      <div class="cite">Source: VA Office of Integrated Veteran Care; 38 CFR § 17.271</div>
+    </div>
+
+    <div class="article" id="ptsd-cptsd">
+      <div class="eyebrow">Mental Health</div>
+      <h2>PTSD vs. Complex PTSD</h2>
+      <p>PTSD is recognized in both the DSM-5 (used in the U.S.) and the ICD-11 (the international standard). Complex PTSD (C-PTSD) is recognized as a distinct diagnosis in the ICD-11, but is not listed as a separate diagnosis in the DSM-5 — which is part of why it's so often confused with, or folded into, standard PTSD in the U.S.</p>
+      <p>Both share the same core symptoms: re-experiencing the trauma, avoidance, and heightened alertness or threat perception. C-PTSD includes everything in PTSD, plus three additional symptom areas the ICD-11 calls "disturbances in self-organization":</p>
+      <ul>
+        <li><strong>Affective dysregulation</strong> — difficulty managing emotional reactions</li>
+        <li><strong>Negative self-concept</strong> — persistent beliefs of being diminished, defeated, or worthless</li>
+        <li><strong>Disturbances in relationships</strong> — ongoing difficulty feeling close to others</li>
+      </ul>
+      <p>C-PTSD is most associated with prolonged or repeated trauma — such as extended combat exposure or captivity — rather than a single traumatic incident, which is more typical of standard PTSD.</p>
+      <div class="crisis-box">
+        <div class="tag">Veterans Crisis Line</div>
+        <p><strong>Call:</strong> 988 then Press 1</p>
+        <p><strong>Text:</strong> 838255</p>
+        <p><strong>Chat:</strong> VeteransCrisisLine.net</p>
+        <p><strong>TTY:</strong> 711 then 988</p>
+      </div>
+      <div class="cite">Sources: ICD-11 (World Health Organization); DSM-5-TR (American Psychiatric Association). This content is educational and not a diagnostic tool — if you're experiencing symptoms, a licensed provider is the right next step.</div>
+    </div>
+
+    <div class="article" id="top-claims">
+      <div class="eyebrow">VA Benefits 101</div>
+      <h2>The Most Commonly Claimed VA Disabilities</h2>
+      <p>Based on the VA's FY2025 Annual Benefits Report, these are the most prevalent service-connected disabilities among veterans currently receiving compensation:</p>
+      <ol>
+        <li><strong>Tinnitus</strong> — over 3.5 million veterans, the single most common VA claim by a wide margin. Rated at a flat 10%, regardless of whether it affects one ear or both.</li>
+        <li><strong>Limitation of knee flexion</strong> — over 2.3 million veterans, rated based on range-of-motion testing.</li>
+        <li><strong>Paralysis of the sciatic nerve (sciatica)</strong> — over 2 million veterans, frequently diagnosed as secondary to a lower back condition.</li>
+        <li><strong>Back or neck strain</strong> — among the most common musculoskeletal claims across all service eras.</li>
+        <li><strong>PTSD</strong> — ranks higher among all compensation recipients than it does among first-time claims alone, reflecting increased screening and awareness over time. Rated anywhere from 0% to 100% depending on severity and impact on daily functioning.</li>
+      </ol>
+      <div class="callout">
+        <div class="tag">Worth knowing</div>
+        <p>The average veteran receiving compensation has more than 6 service-connected conditions rated at once — most claims don't stand alone, and secondary conditions (like sciatica from a back injury) often end up being part of the final rating.</p>
+      </div>
+      <div class="cite">Source: VA Veterans Benefits Administration, Annual Benefits Report, Fiscal Year 2025</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="cta-band">
+  <a href="https://bit.ly/4r5NC2R" class="cta-glass">Try the Beta</a>
+</section>
+
+<footer>
+  <div class="footer-row">
+    <div class="footer-brand">
+      <img src="logo.png" alt="">
+      <span>Future Operating Base</span>
+    </div>
+    <div class="flinks">
+      <a href="index.html#problem">The Problem</a>
+      <a href="resources.html">Resources</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </div>
+  <div class="footer-fine">Future Operating Base is a free, independent resource and is not affiliated with or endorsed by the U.S. Department of Veterans Affairs. Content on this page is for general educational purposes and is not a substitute for professional legal, medical, or benefits counseling.</div>
+</footer>
+
+<script>
+  var nav = document.getElementById('nav');
+  var hamburger = document.getElementById('hamburger');
+  window.addEventListener('scroll', function(){
+    if (window.scrollY > 8) {
+      nav.classList.add('scrolled');
+      hamburger.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+      hamburger.classList.remove('scrolled');
+    }
+  });
+  var menu = document.getElementById('mobileMenu');
+  var backdrop = document.getElementById('mobileBackdrop');
+  function closeMenu(){
+    hamburger.classList.remove('open');
+    menu.classList.remove('open');
+    backdrop.classList.remove('open');
+  }
+  hamburger.addEventListener('click', function(){
+    var isOpen = menu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    backdrop.classList.toggle('open', isOpen);
+  });
+  menu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+  menu.addEventListener('click', function(e){ if (e.target === menu) closeMenu(); });
+  backdrop.addEventListener('click', closeMenu);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeMenu(); });
+</script>
+</body>
+</html>

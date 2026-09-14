@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
 <title>Future Operating Base — Your transition, translated.</title>
+<meta name="description" content="Future Operating Base turns VA benefits, claims, and military transition into plain English. Free forever, personalized to your EAS date. Beta live now.">
 <style>
   *{ margin:0; padding:0; box-sizing:border-box; }
   a{ text-decoration:none; color:inherit; }
@@ -166,6 +167,19 @@
   }
   .reveal.is-visible{ opacity:1; transform:translateY(0) scale(1); }
 
+  /* Staggered children: each direct child fades in slightly after the previous one */
+  .stagger > *{
+    opacity:0; transform:translateY(24px) scale(0.96);
+    transition:opacity 0.7s cubic-bezier(.16,.9,.3,1), transform 0.7s cubic-bezier(.16,.9,.3,1);
+  }
+  .stagger.is-visible > *{ opacity:1; transform:translateY(0) scale(1); }
+  .stagger.is-visible > *:nth-child(1){ transition-delay:0.05s; }
+  .stagger.is-visible > *:nth-child(2){ transition-delay:0.14s; }
+  .stagger.is-visible > *:nth-child(3){ transition-delay:0.23s; }
+  .stagger.is-visible > *:nth-child(4){ transition-delay:0.32s; }
+  .stagger.is-visible > *:nth-child(5){ transition-delay:0.41s; }
+  .stagger.is-visible > *:nth-child(6){ transition-delay:0.5s; }
+
   /* ===== SECTION SCAFFOLD ===== */
   section{ padding:110px 0; }
   .section-head{ text-align:center; max-width:640px; margin:0 auto 60px; }
@@ -281,9 +295,9 @@
     </a>
     <div class="nav-links">
       <a href="#problem">The Problem</a>
-      <a href="#path">Your Path</a>
-      <a href="#features">Features</a>
+      <a href="resources.html">Resources</a>
       <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
       <a href="contact.html">Contact</a>
     </div>
   </div>
@@ -296,9 +310,9 @@
 <div class="mobile-backdrop" id="mobileBackdrop"></div>
 <div class="mobile-menu" id="mobileMenu">
   <a href="#problem">The Problem</a>
-  <a href="#path">Your Path</a>
-  <a href="#features">Features</a>
+  <a href="resources.html">Resources</a>
   <a href="about.html">About</a>
+  <a href="faq.html">FAQ</a>
   <a href="contact.html">Contact</a>
 </div>
 
@@ -327,17 +341,17 @@
       <h2>You don't have a benefits problem. You have an information problem.</h2>
       <p>The programs already exist. The gap is knowing they're there, and knowing how to use them.</p>
     </div>
-    <div class="stat-band reveal">
+    <div class="stat-band stagger">
       <div>
-        <div class="stat-num">50%</div>
+        <div class="stat-num count-up">50%</div>
         <div class="stat-label">of eligible veterans aren't enrolled in VA health care</div>
       </div>
       <div>
-        <div class="stat-num">60%</div>
+        <div class="stat-num count-up">60%</div>
         <div class="stat-label">never use their Post-9/11 GI Bill</div>
       </div>
       <div>
-        <div class="stat-num">87%</div>
+        <div class="stat-num count-up">87%</div>
         <div class="stat-label">never use their VA home loan benefit</div>
       </div>
     </div>
@@ -351,7 +365,7 @@
       <h2>One timeline, from twelve months out to two years home.</h2>
       <p>FOB's Path feature meets you wherever you are in transition — the app changes what it shows you based on your actual EAS date.</p>
     </div>
-    <div class="timeline reveal">
+    <div class="timeline stagger">
       <div class="t-item">
         <div class="t-marker">T-365</div>
         <div class="t-content">
@@ -390,7 +404,7 @@
       <h2>Everything translated, nothing oversimplified.</h2>
       <p>Six areas. One plain-language source, instead of six different offices.</p>
     </div>
-    <div class="feature-grid reveal">
+    <div class="feature-grid stagger">
       <div class="f-card">
         <div class="f-icon"><svg viewBox="0 0 24 24"><path d="M4 20 Q4 12 12 12 Q20 12 20 4"/><circle cx="20" cy="4" r="2"/><circle cx="4" cy="20" r="2"/></svg></div>
         <div class="f-name">Your Path</div>
@@ -432,9 +446,8 @@
     </div>
     <div>
       <h2>Built by someone who lived it.</h2>
-      <p>I'm a Marine Corps veteran. When I got out, I didn't know what I'd earned, what I qualified for, or where to even start looking — and I don't think that's unusual. I think it's the default experience.</p>
-      <p>I built Future Operating Base mostly through vibe coding: fast, AI-assisted, iterative development that kept me close to the actual problem instead of buried in process. I'm not a trained engineer, and I'm not pretending to be one. I'm someone who needed this tool, so I built it.</p>
-      <p>It's free. It's staying free. And it's still very much in progress — which is exactly why your feedback matters right now, while it's still being shaped.</p>
+      <p>I'm a Marine Corps veteran. When I got out, I didn't know what I'd earned, what I qualified for, or where to even start looking. So I built the tool I wish someone had handed me on my way out.</p>
+      <p><a href="about.html" style="color:var(--vivid); font-weight:600;">Read the full story →</a></p>
       <div class="sig">— Catherine Resoco, Founder</div>
     </div>
   </div>
@@ -442,21 +455,24 @@
 
 <section class="success">
   <div class="wrap">
-    <div class="success-row reveal">
+    <div class="section-head reveal" style="margin-bottom:40px;">
+      <p style="font-size:17px; color:var(--ink-soft);">This is the gap FOB exists to close — veterans thrive when they actually get what they've earned.</p>
+    </div>
+    <div class="success-row stagger">
       <div class="success-item">
-        <div class="num">3.5%</div>
+        <div class="num count-up">3.5%</div>
         <div class="lbl">veteran unemployment rate — lower than the 4.2% civilian rate</div>
       </div>
       <div class="success-item">
-        <div class="num">45%</div>
+        <div class="num count-up">45%</div>
         <div class="lbl">more likely to start a business than nonveterans</div>
       </div>
       <div class="success-item">
-        <div class="num">$1T+</div>
+        <div class="num count-up">$1T+</div>
         <div class="lbl">generated annually by veteran-owned businesses</div>
       </div>
       <div class="success-item">
-        <div class="num">6M</div>
+        <div class="num count-up">6M</div>
         <div class="lbl">jobs created by veteran-owned businesses</div>
       </div>
     </div>
@@ -478,7 +494,7 @@
 
     <div class="cta-buttons">
       <a href="https://bit.ly/4r5NC2R" class="btn btn-coral">Try the beta now</a>
-      <a href="#" class="btn btn-outline">Get notified at launch</a>
+      <a href="mailto:info@futureoperatingbase.com?subject=Notify%20me%20at%20launch" class="btn btn-outline">Get notified at launch</a>
     </div>
     <div class="cta-note">bit.ly/4r5NC2R</div>
   </div>
@@ -509,10 +525,11 @@
     </div>
     <div class="flinks">
       <a href="#problem">The Problem</a>
-      <a href="#path">Your Path</a>
-      <a href="#features">Features</a>
+      <a href="resources.html">Resources</a>
       <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
       <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
     </div>
   </div>
   <div class="footer-fine">Future Operating Base is a free, independent resource and is not affiliated with or endorsed by the U.S. Department of Veterans Affairs.</div>
@@ -553,10 +570,41 @@
         if (entry.isIntersecting) { entry.target.classList.add('is-visible'); io.unobserve(entry.target); }
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+    document.querySelectorAll('.reveal, .stagger').forEach(function(el){ io.observe(el); });
   } else {
-    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('is-visible'); });
+    document.querySelectorAll('.reveal, .stagger').forEach(function(el){ el.classList.add('is-visible'); });
   }
+
+  (function(){
+    function animateCount(el){
+      var raw = el.textContent.trim();
+      var match = raw.match(/^([^0-9]*)([0-9]*\.?[0-9]+)(.*)$/);
+      if (!match) return;
+      var prefix = match[1], target = parseFloat(match[2]), suffix = match[3];
+      var decimals = (match[2].split('.')[1] || '').length;
+      var duration = 1400;
+      var start = null;
+      function step(ts){
+        if (!start) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        var current = target * eased;
+        el.textContent = prefix + current.toFixed(decimals) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = prefix + target.toFixed(decimals) + suffix;
+      }
+      requestAnimationFrame(step);
+    }
+    var countEls = document.querySelectorAll('.count-up');
+    if (!countEls.length) return;
+    if (!('IntersectionObserver' in window)) return;
+    var countIo = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) { animateCount(entry.target); countIo.unobserve(entry.target); }
+      });
+    }, { threshold: 0.4 });
+    countEls.forEach(function(el){ countIo.observe(el); });
+  })();
 
   (function(){
     var el = document.getElementById('launch-countdown');
